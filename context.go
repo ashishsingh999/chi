@@ -22,6 +22,19 @@ func URLParamFromCtx(ctx context.Context, key string) string {
 	return ""
 }
 
+
+func URLParamsMap(r *http.Request) map[string]string {
+	rctx := RouteContext(r.Context())
+	params := make(map[string]string)
+
+	
+	for i, key := range rctx.URLParams.Keys {
+		params[key] = rctx.URLParams.Values[i] 
+	}
+
+	return params
+}
+
 // RouteContext returns chi's routing Context object from a
 // http.Request Context.
 func RouteContext(ctx context.Context) *Context {
